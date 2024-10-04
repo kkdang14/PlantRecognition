@@ -18,7 +18,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = 'supersecretkey'
 
 # Load the pre-trained model
-MODEL_PATH = 'model/plant_recognition_model_1.h5'
+MODEL_PATH = 'plant_recognition_model_1.h5'
 model = load_model(MODEL_PATH)
 
 # Ensure the upload folder exists
