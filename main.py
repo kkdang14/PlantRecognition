@@ -51,10 +51,10 @@ def predict():
     if file.filename == '':
         flash('No selected file')
         return redirect(request.url)
-    # if file and allowed_file(file.filename):
-    #     filename = secure_filename(file.filename)
-    #     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    #     file.save(file_path)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
 
         # Preprocess the image
         image = preprocess_image(file_path)
