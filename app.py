@@ -18,7 +18,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = 'supersecretkey'
 
 # Load the pre-trained model
-MODEL_PATH = 'plant_recognition_model_1.h5'
+MODEL_PATH = 'plant_recognition_model_2.h5'
 model = load_model(MODEL_PATH)
 
 # Ensure the upload folder exists
@@ -26,7 +26,7 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 # Webcam video capture
-camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(1)
 
 # Function to check allowed file types
 def allowed_file(filename):
@@ -54,11 +54,11 @@ def generate_frames():
             predicted_class = np.argmax(predictions, axis=1)[0]  # Get the class index
 
             # Class dictionary (mapping the prediction index to plant name)
-            class_dict = {0: 'duong_xi', 1: 'lan_y', 2: 'luoi_ho', 3: 'thuy_tung', 4: 'van_nien_thanh'}
+            class_dict = {0: 'duong_xi', 1: 'lan_y', 2: 'luoi_ho', 3: 'nha_dam', 4: 'thuy_tung', 5: 'van_nien_thanh'}
             plant_name = class_dict.get(predicted_class, "Unknown Plant")
 
             # Display the prediction on the frame
-            cv2.putText(frame, f'Plant: {plant_name}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            cv2.putText(frame, f'Plant: {plant_name}', (30, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
             # Encode the frame as a JPEG image and yield it as byte data for real-time display
             ret, buffer = cv2.imencode('.jpg', frame)
@@ -96,7 +96,7 @@ def predict():
         predicted_class = np.argmax(predictions, axis=1)[0]  # Get the class index
 
         # Class dictionary
-        class_dict = {0: 'duong_xi', 1: 'lan_y', 2: 'luoi_ho', 3: 'nha_dam', 4: 'thuy_tung', 5: 'van_nien_thanh'}  # Example
+        class_dict = {0: 'duong_xi', 1: 'lan_y', 2: 'luoi_ho', 3: 'thuy_tung', 4: 'van_nien_thanh'}  # Example
         plant_name = class_dict.get(predicted_class, "Unknown Plant")
 
         return render_template('result.html', plant_name=plant_name)
